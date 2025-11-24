@@ -1,0 +1,94 @@
+/*
+ * =============================================================================
+ * OCTUPLE DESIGN SYSTEM - GLOBAL CSS OVERRIDES
+ * =============================================================================
+ * 
+ * PURPOSE: These CSS overrides fix known issues with Octuple components.
+ * DO NOT REMOVE unless you understand why each override exists.
+ * 
+ * LESSONS LEARNED: These overrides were discovered while building 3 example
+ * pages (Candidate Details, People, Profile). Each addresses a specific issue.
+ * 
+ * Last Updated: November 2024
+ * =============================================================================
+ */
+
+/* =============================================================================
+ * FONT OVERRIDE
+ * =============================================================================
+ * PROBLEM: Octuple components use their own internal fonts.
+ * SOLUTION: Override with Gilroy (primary) and Poppins (fallback).
+ * WHY: Ensures consistent typography across the entire application.
+ */
+* {
+  font-family: 'Gilroy', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Force Gilroy font in all Octuple components (they use CSS modules) */
+[class*="octuple"],
+[class*="module_"],
+[class*="-module_"] {
+  font-family: 'Gilroy', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* =============================================================================
+ * CARD WIDTH/HEIGHT OVERRIDE
+ * =============================================================================
+ * PROBLEM: Octuple Cards have internal max-width constraints that prevent
+ *          them from taking full width of their container.
+ * SOLUTION: Force width: 100% and remove height constraints.
+ * WHY: Cards should be responsive and fill their container width.
+ *      Height should be determined by content, not fixed.
+ */
+.card-module_card__BroLO,
+[class*="card-module_card"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: unset !important;
+}
+
+/* =============================================================================
+ * TAB INDICATOR POSITIONING (FOR 80px HEADERS)
+ * =============================================================================
+ * PROBLEM: When Tabs are placed in an 80px header, the tab indicator (the
+ *          blue underline showing selected tab) appears BELOW the header
+ *          instead of at the bottom of the header.
+ * SOLUTION: Position the indicator absolutely at bottom: 0 and ensure the
+ *          tabs container fills the full 80px header height.
+ * WHY: The indicator should visually connect to the header bottom border.
+ */
+
+/* Position tab indicator at bottom of header */
+header [class*="tabs-module_tab-indicator"] {
+  bottom: 0 !important;
+  top: auto !important;
+  position: absolute !important;
+}
+
+/* Ensure tabs container fills header height for indicator positioning */
+header [class*="tabs-module_tabs"],
+header [class*="tabs-module_tab-wrap"] {
+  height: 80px !important;
+  position: relative;
+}
+
+/* =============================================================================
+ * NOTES FOR FUTURE DEVELOPERS
+ * =============================================================================
+ * 
+ * 1. BUTTONS: Don't force width/height on buttons. Use ButtonShape.Round
+ *    for circular icon-only buttons. Let Octuple handle sizing.
+ * 
+ * 2. ICONS: Never use emojis. Always use MDI icons from @mdi/js.
+ * 
+ * 3. ROW/COL: Octuple Row doesn't use flexbox by default. Add:
+ *    style={{ display: 'flex', flexWrap: 'nowrap' }}
+ * 
+ * 4. TOGGLE: Use <CheckBox toggle /> instead of creating custom toggles.
+ * 
+ * 5. SKILL TAGS: Use <SkillTag label="..." /> instead of custom divs.
+ * 
+ * See docs/IMPORTANT-AI-RULES.md for complete list of lessons learned.
+ * =============================================================================
+ */
