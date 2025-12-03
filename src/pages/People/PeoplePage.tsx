@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
   Layout,
-  Row,
-  Col,
   Tabs,
   Tab,
   TextInput,
@@ -192,74 +190,38 @@ export const PeoplePage: React.FC = () => {
         </div>
 
         {/* Search Section */}
-        <div style={{ marginBottom: '16px' }}>
-          <Row
-            gutter={16}
-            style={{
-              display: 'flex',
-              flexWrap: isMobile ? 'wrap' : 'nowrap',
-              alignItems: 'center',
-              gap: '12px',
-            }}
-          >
-            <Col
-              xs={24}
-              sm={24}
-              md={8}
-              lg={8}
-              style={{
-                flex: isMobile ? '1 1 100%' : '0 0 calc(50% - 8px)',
-                maxWidth: isMobile ? '100%' : 'calc(50% - 8px)',
-              }}
-            >
-              <TextInput
-                placeholder="Search People"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                iconProps={{ path: mdiMagnify as IconName }}
-                alignIcon={TextInputIconAlign.Left}
-                style={{ width: '100%' }}
-              />
-            </Col>
-            <Col
-              xs={24}
-              sm={24}
-              md={8}
-              lg={8}
-              style={{
-                flex: isMobile ? '1 1 100%' : '0 0 calc(50% - 8px)',
-                maxWidth: isMobile ? '100%' : 'calc(50% - 8px)',
-              }}
-            >
-              <TextInput
-                placeholder="Search by location"
-                value={locationQuery}
-                onChange={(e) => setLocationQuery(e.target.value)}
-                iconProps={{ path: mdiMapMarker as IconName }}
-                alignIcon={TextInputIconAlign.Left}
-                style={{ width: '100%' }}
-              />
-            </Col>
-            <Col
-              xs={24}
-              sm={24}
-              md={8}
-              lg={8}
-              style={{
-                flex: isMobile ? '1 1 100%' : '0 0 auto',
-                display: 'flex',
-                justifyContent: isMobile ? 'stretch' : 'flex-start',
-              }}
-            >
-              <Button
-                text="Go"
-                variant={ButtonVariant.Primary}
-                onClick={handleSearch}
-                size={ButtonSize.Medium}
-                style={{ width: isMobile ? '100%' : 'auto' }}
-              />
-            </Col>
-          </Row>
+        <div 
+          style={{ 
+            marginBottom: '16px',
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'stretch' : 'center',
+            gap: '12px',
+          }}
+        >
+          <TextInput
+            placeholder="Search People"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            iconProps={{ path: mdiMagnify as IconName }}
+            alignIcon={TextInputIconAlign.Left}
+            style={{ width: isMobile ? '100%' : '280px' }}
+          />
+          <TextInput
+            placeholder="Search by location"
+            value={locationQuery}
+            onChange={(e) => setLocationQuery(e.target.value)}
+            iconProps={{ path: mdiMapMarker as IconName }}
+            alignIcon={TextInputIconAlign.Left}
+            style={{ width: isMobile ? '100%' : '280px' }}
+          />
+          <Button
+            text="Go"
+            variant={ButtonVariant.Primary}
+            onClick={handleSearch}
+            size={ButtonSize.Medium}
+            style={{ width: isMobile ? '100%' : 'auto' }}
+          />
         </div>
 
         {/* Filter Buttons */}
