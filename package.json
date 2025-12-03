@@ -2,6 +2,7 @@
   "name": "octuple-ai-starter",
   "version": "2.2.0",
   "description": "Starter template for using Octuple design system with AI coding agents",
+  "homepage": "https://ypike-eightfold.github.io/octuple-ide-setup",
   "type": "module",
   "scripts": {
     "dev": "vite",
