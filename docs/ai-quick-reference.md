@@ -18,6 +18,58 @@
 
 ---
 
+## 🚨 Common Problems Quick Lookup
+
+| Problem | Solution |
+|---------|----------|
+| Search icon outside TextInput | Use wrapper div with absolute positioning (see below) |
+| Row/Col items spread across page | Use flexbox instead for grouped items |
+| Row/Col items stack vertically | Add `style={{ display: 'flex' }}` to Row |
+| Cards not full width | Add CSS: `[class*="card-module_card"] { width: 100% !important; }` |
+| Tab indicator outside header | Add CSS to position indicator (see IMPORTANT-AI-RULES.md) |
+| Buttons wrong size when circular | Use `shape={ButtonShape.Round}` NOT forced dimensions |
+| Avatar/Name not in same row | Use flexbox row, not Row/Col |
+| Action icons at bottom | Put them in flex container at top-right |
+
+### TextInput with Icon (Copy This)
+
+```tsx
+<div style={{ position: 'relative', width: '280px' }}>
+  <Icon path={mdiMagnify} size={0.8} style={{ 
+    position: 'absolute', left: '12px', top: '50%', 
+    transform: 'translateY(-50%)', color: '#8c8c8c',
+    pointerEvents: 'none', zIndex: 1,
+  }} />
+  <TextInput placeholder="Search" style={{ width: '100%', paddingLeft: '36px' }} />
+</div>
+```
+
+### Search Section (Copy This)
+
+```tsx
+<div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+  <TextInput placeholder="Search" style={{ width: '280px' }} />
+  <TextInput placeholder="Location" style={{ width: '280px' }} />
+  <Button text="Go" variant={ButtonVariant.Primary} />
+</div>
+```
+
+### Common Icon Imports
+
+```tsx
+import { 
+  mdiSitemap,           // Org chart (NOT mdiDomain)
+  mdiBookmarkOutline,   // Save/bookmark
+  mdiCommentOutline,    // Ask/chat
+  mdiLinkVariant,       // Request/connect
+  mdiMapMarkerOutline,  // Location
+  mdiCoffee,            // Coffee chat
+  mdiMagnify,           // Search
+} from '@mdi/js';
+```
+
+---
+
 ## 🎯 Component Selection Decision Trees
 
 ### 🔘 Need a Clickable Element?

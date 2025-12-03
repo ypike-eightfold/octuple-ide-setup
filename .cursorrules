@@ -84,6 +84,103 @@ header [class*="tabs-module_tab-indicator"] {
 Always check documentation or TypeScript types before using a component.
 Use: `npm run check-props ComponentName`
 
+### 9. TEXTINPUT - Icon Positioning Requires Wrapper
+```typescript
+// ❌ WRONG - iconProps doesn't reliably position icons inside TextInput
+<TextInput
+  placeholder="Search"
+  iconProps={{ path: mdiMagnify as IconName }}
+  alignIcon={TextInputIconAlign.Left}
+/>
+
+// ✅ CORRECT - Use wrapper with absolute positioning
+<div style={{ position: 'relative', width: '280px' }}>
+  <Icon 
+    path={mdiMagnify} 
+    size={0.8} 
+    style={{ 
+      position: 'absolute', 
+      left: '12px', 
+      top: '50%', 
+      transform: 'translateY(-50%)', 
+      color: '#8c8c8c',
+      pointerEvents: 'none',
+      zIndex: 1,
+    }} 
+  />
+  <TextInput
+    placeholder="Search"
+    style={{ width: '100%', paddingLeft: '36px' }}
+  />
+</div>
+```
+
+### 10. LAYOUT - Prefer Flexbox Over Row/Col for Simple Layouts
+```typescript
+// ❌ WRONG - Row/Col spreads items across full width
+<Row gutter={16}>
+  <Col md={8}><TextInput /></Col>
+  <Col md={8}><TextInput /></Col>
+  <Col md={8}><Button text="Go" /></Col>
+</Row>
+
+// ✅ CORRECT - Use flexbox to keep items together
+<div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+  <TextInput style={{ width: '280px' }} />
+  <TextInput style={{ width: '280px' }} />
+  <Button text="Go" />
+</div>
+```
+
+### 11. CARD LAYOUT - Structure for Person/Profile Cards
+```typescript
+// ✅ CORRECT structure for person cards
+<Card>
+  <div style={{ display: 'flex', gap: '20px' }}>
+    {/* Left: Avatar + Name in same row, then buttons */}
+    <div style={{ minWidth: '320px' }}>
+      <div style={{ display: 'flex', gap: '12px' }}>
+        <Avatar>{initials}</Avatar>
+        <div>
+          <h3>Name</h3>
+          <p>Title • Department</p>
+        </div>
+        {/* Action icons at top-right */}
+        <div style={{ marginLeft: 'auto' }}>
+          <Icon path={mdiSitemap} />
+          <Icon path={mdiBookmarkOutline} />
+        </div>
+      </div>
+      {/* Buttons below */}
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <Button text="Ask" />
+        <Button text="Request" />
+      </div>
+    </div>
+    
+    {/* Vertical Divider */}
+    <div style={{ width: '1px', backgroundColor: '#e8e8e8' }} />
+    
+    {/* Right: Info items horizontal with wrap */}
+    <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', gap: '16px 32px' }}>
+      {/* Info items */}
+    </div>
+  </div>
+</Card>
+```
+
+### 12. ICON CHOICES - Use Correct MDI Icons
+```typescript
+// Common icon replacements:
+import { 
+  mdiSitemap,           // Org chart (NOT mdiDomain)
+  mdiCommentOutline,    // Ask/Chat buttons
+  mdiLinkVariant,       // Request/Connect buttons
+  mdiMapMarkerOutline,  // Location (NOT emoji 📍)
+  mdiCoffee,            // Coffee chat badge
+} from '@mdi/js';
+```
+
 ---
 
 ## 🚨 CRITICAL: Read First

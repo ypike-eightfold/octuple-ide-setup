@@ -96,6 +96,121 @@ import { SkillTag } from '@eightfold.ai/octuple';
 <div style={{ padding: '4px 8px', border: '1px solid #ccc' }}>Machine Learning</div>
 ```
 
+### TextInput with Icon Inside (Wrapper Method)
+
+```tsx
+import { TextInput } from '@eightfold.ai/octuple';
+import Icon from '@mdi/react';
+import { mdiMagnify } from '@mdi/js';
+
+// ✅ CORRECT - Use wrapper with absolute positioning
+<div style={{ position: 'relative', width: '280px' }}>
+  <Icon 
+    path={mdiMagnify} 
+    size={0.8} 
+    style={{ 
+      position: 'absolute', 
+      left: '12px', 
+      top: '50%', 
+      transform: 'translateY(-50%)', 
+      color: '#8c8c8c',
+      pointerEvents: 'none',
+      zIndex: 1,
+    }} 
+  />
+  <TextInput
+    placeholder="Search people, jobs or projects"
+    style={{ width: '100%', paddingLeft: '36px' }}
+  />
+</div>
+
+// ❌ WRONG - iconProps doesn't reliably position icons
+<TextInput
+  placeholder="Search"
+  iconProps={{ path: mdiMagnify as IconName }}
+  alignIcon={TextInputIconAlign.Left}
+/>
+```
+
+### Search Section Layout (Keep Items Together)
+
+```tsx
+import { TextInput, Button, ButtonVariant, ButtonSize } from '@eightfold.ai/octuple';
+
+// ✅ CORRECT - Use flexbox to keep search items together
+<div 
+  style={{ 
+    display: 'flex', 
+    gap: '12px', 
+    alignItems: 'center',
+  }}
+>
+  <TextInput placeholder="Search People" style={{ width: '280px' }} />
+  <TextInput placeholder="Search by location" style={{ width: '280px' }} />
+  <Button text="Go" variant={ButtonVariant.Primary} size={ButtonSize.Medium} />
+</div>
+
+// ❌ WRONG - Row/Col spreads items across full width
+<Row gutter={16}>
+  <Col md={8}><TextInput placeholder="Search People" /></Col>
+  <Col md={8}><TextInput placeholder="Location" /></Col>
+  <Col md={8}><Button text="Go" /></Col>
+</Row>
+```
+
+### Person Card Layout Structure
+
+```tsx
+import { Card, Avatar, Button, ButtonVariant, ButtonSize, IconName } from '@eightfold.ai/octuple';
+import Icon from '@mdi/react';
+import { mdiSitemap, mdiBookmarkOutline, mdiCommentOutline, mdiLinkVariant, mdiCoffee } from '@mdi/js';
+
+// ✅ CORRECT - Structured card layout
+<Card style={{ padding: '20px', width: '100%' }}>
+  <div style={{ display: 'flex', gap: '20px' }}>
+    {/* LEFT: Avatar + Info + Buttons */}
+    <div style={{ minWidth: '320px' }}>
+      {/* Top row: Avatar + Name + Action icons at right */}
+      <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+        <Avatar size="48px" type="round">{initials}</Avatar>
+        <div style={{ flex: 1 }}>
+          <h3 style={{ margin: 0 }}>{name}</h3>
+          <p style={{ margin: 0, color: '#595959' }}>{title} • {department}</p>
+          <p style={{ margin: 0, color: '#8c8c8c' }}>{email}</p>
+        </div>
+        {/* Action icons at TOP RIGHT */}
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Icon path={mdiSitemap} size={0.8} style={{ color: '#8c8c8c', cursor: 'pointer' }} />
+          <Icon path={mdiBookmarkOutline} size={0.8} style={{ color: '#8c8c8c', cursor: 'pointer' }} />
+        </div>
+      </div>
+      
+      {/* Buttons below */}
+      <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+        <Button text="Ask" variant={ButtonVariant.Primary} size={ButtonSize.Small} iconProps={{ path: mdiCommentOutline as IconName }} />
+        <Button text="Request" variant={ButtonVariant.Secondary} size={ButtonSize.Small} iconProps={{ path: mdiLinkVariant as IconName }} />
+      </div>
+      
+      {/* Open to with badge icons */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+        <span style={{ fontSize: '13px', color: '#595959' }}>Open to</span>
+        <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#FFF7E6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Icon path={mdiCoffee} size={0.7} style={{ color: '#8B4513' }} />
+        </div>
+      </div>
+    </div>
+    
+    {/* VERTICAL DIVIDER */}
+    <div style={{ width: '1px', backgroundColor: '#e8e8e8', alignSelf: 'stretch' }} />
+    
+    {/* RIGHT: Info items with wrap */}
+    <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', gap: '16px 32px' }}>
+      {/* Info items: Manager, Business Unit, Location, Mentoring */}
+    </div>
+  </div>
+</Card>
+```
+
 ### Two-Column Layout (Row needs flex)
 
 ```tsx

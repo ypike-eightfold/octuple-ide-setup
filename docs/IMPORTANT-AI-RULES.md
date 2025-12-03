@@ -150,6 +150,133 @@ header [class*="tabs-module_tab-wrap"] {
 </Row>
 ```
 
+### MISTAKE 8: TextInput Icon Positioning with iconProps
+
+**Problem:** Using `iconProps` and `alignIcon` on TextInput doesn't reliably position the icon inside the field - the icon appears outside/below the input.
+
+```typescript
+// ❌ WRONG - Icon appears outside the TextInput
+<TextInput
+  placeholder="Search"
+  iconProps={{ path: mdiMagnify as IconName }}
+  alignIcon={TextInputIconAlign.Left}
+/>
+
+// ✅ CORRECT - Use wrapper with absolute positioning
+<div style={{ position: 'relative', width: '280px' }}>
+  <Icon 
+    path={mdiMagnify} 
+    size={0.8} 
+    style={{ 
+      position: 'absolute', 
+      left: '12px', 
+      top: '50%', 
+      transform: 'translateY(-50%)', 
+      color: '#8c8c8c',
+      pointerEvents: 'none',
+      zIndex: 1,
+    }} 
+  />
+  <TextInput
+    placeholder="Search"
+    style={{ width: '100%', paddingLeft: '36px' }}
+  />
+</div>
+```
+
+### MISTAKE 9: Row/Col Spreading Items Across Full Width
+
+**Problem:** Using Row/Col for search fields spreads them across the page instead of keeping them together.
+
+```typescript
+// ❌ WRONG - Search fields spread across full width
+<Row gutter={16}>
+  <Col md={8}><TextInput placeholder="Search People" /></Col>
+  <Col md={8}><TextInput placeholder="Location" /></Col>
+  <Col md={8}><Button text="Go" /></Col>
+</Row>
+
+// ✅ CORRECT - Use simple flexbox for grouped items
+<div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+  <TextInput placeholder="Search People" style={{ width: '280px' }} />
+  <TextInput placeholder="Location" style={{ width: '280px' }} />
+  <Button text="Go" />
+</div>
+```
+
+**When to use Row/Col vs Flexbox:**
+- **Row/Col**: Full-width responsive grid layouts (e.g., two-column page layouts)
+- **Flexbox**: Grouped items that should stay together (e.g., search bars, button groups)
+
+### MISTAKE 10: Card Layout Structure
+
+**Problem:** Avatar, Name/Title, and action icons placed in wrong positions.
+
+**Correct structure for person/profile cards:**
+
+```typescript
+<Card style={{ padding: '20px' }}>
+  <div style={{ display: 'flex', gap: '20px' }}>
+    {/* LEFT SECTION: Avatar + Info + Buttons */}
+    <div style={{ minWidth: '320px' }}>
+      {/* Top row: Avatar + Name/Title + Action Icons */}
+      <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+        <Avatar size="48px">{initials}</Avatar>
+        <div style={{ flex: 1 }}>
+          <h3>Name</h3>
+          <p>Title • Department</p>
+          <p>email@example.com</p>
+        </div>
+        {/* Action icons at TOP RIGHT */}
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Icon path={mdiSitemap} size={0.8} />
+          <Icon path={mdiBookmarkOutline} size={0.8} />
+        </div>
+      </div>
+      
+      {/* Buttons below info */}
+      <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+        <Button text="Ask" iconProps={{ path: mdiCommentOutline }} />
+        <Button text="Request" iconProps={{ path: mdiLinkVariant }} />
+      </div>
+      
+      {/* Open to badges */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+        <span>Open to</span>
+        <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#FFF7E6' }}>
+          <Icon path={mdiCoffee} />
+        </div>
+      </div>
+    </div>
+    
+    {/* VERTICAL DIVIDER */}
+    <div style={{ width: '1px', backgroundColor: '#e8e8e8', alignSelf: 'stretch' }} />
+    
+    {/* RIGHT SECTION: Info items horizontal with wrap */}
+    <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap', gap: '16px 32px' }}>
+      {/* Manager, Business Unit, Location, Mentoring, etc. */}
+    </div>
+  </div>
+</Card>
+```
+
+### MISTAKE 11: Using Wrong Icons
+
+**Problem:** Used `mdiDomain` (building) instead of `mdiSitemap` (org chart).
+
+**Correct icon choices:**
+```typescript
+import { 
+  mdiSitemap,           // ✅ Org chart button (NOT mdiDomain)
+  mdiBookmarkOutline,   // ✅ Save/bookmark
+  mdiCommentOutline,    // ✅ Ask/chat buttons
+  mdiLinkVariant,       // ✅ Request/connect buttons
+  mdiMapMarkerOutline,  // ✅ Location
+  mdiCoffee,            // ✅ Coffee chat badge
+  mdiAccountMultiple,   // ✅ Mentoring/peers
+} from '@mdi/js';
+```
+
 ---
 
 ## 🔍 Rule #0: ALWAYS Check TypeScript Types - NEVER Guess Props
