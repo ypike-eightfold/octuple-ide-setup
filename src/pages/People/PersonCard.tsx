@@ -1,4 +1,4 @@
-import { Card, Avatar, Button, ButtonVariant, ButtonSize, Row, Col, Dropdown, Badge, IconName } from '@eightfold.ai/octuple';
+import { Card, Avatar, Button, ButtonVariant, ButtonSize, Dropdown, Badge, IconName } from '@eightfold.ai/octuple';
 import Icon from '@mdi/react';
 import { 
   mdiDomain, 
@@ -49,46 +49,36 @@ export const PersonCard: React.FC<PersonCardProps> = ({ person, isMobile = false
         e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.06)';
       }}
     >
-      <Row
-        gutter={[24, 16]}
+      <div
         style={{
           display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'stretch',
+          flexDirection: isMobile ? 'column' : 'row',
+          gap: '24px',
           width: '100%',
         }}
       >
-        {/* Left Column: Avatar and Action Buttons */}
-        <Col
-          xs={24}
-          sm={6}
-          md={5}
-          lg={4}
+        {/* Left Section: Avatar and Action Buttons */}
+        <div
           style={{
-            flex: isMobile ? '1 1 100%' : '0 0 140px',
-            maxWidth: isMobile ? '100%' : '140px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            gap: '12px',
+            minWidth: isMobile ? '100%' : '200px',
+            flexShrink: 0,
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <Avatar size="64px" type="round" style={{ background: '#1890ff', color: '#fff', marginBottom: '8px' }}>
-              {person.initials}
-            </Avatar>
-            
+          <Avatar size="64px" type="round" style={{ background: '#1890ff', color: '#fff' }}>
+            {person.initials}
+          </Avatar>
+          
+          {/* Buttons Row - Horizontal */}
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', flexWrap: 'wrap' }}>
             <Button 
               text="Ask" 
               variant={ButtonVariant.Primary} 
               size={ButtonSize.Small}
-              style={{ width: '100%' }}
             />
-            
-            {person.mentoringStatus === 'open' && (
-              <Button 
-                text="Request" 
-                variant={ButtonVariant.Default} 
-                size={ButtonSize.Small}
-                style={{ width: '100%' }}
-              />
-            )}
             
             {/* Open to Dropdown */}
             <Dropdown
@@ -105,69 +95,67 @@ export const PersonCard: React.FC<PersonCardProps> = ({ person, isMobile = false
                 variant={ButtonVariant.Default} 
                 size={ButtonSize.Small}
                 iconProps={{ path: mdiChevronDown as IconName }}
-                style={{ 
-                  width: '100%', 
-                  backgroundColor: '#fafafa'
-                }}
+                style={{ backgroundColor: '#fafafa' }}
               />
             </Dropdown>
-
-            {/* Coffee Chat Badge - Separate from button */}
-            {person.coffeeChat && (
-              <Badge style={{ marginTop: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                <Icon path={mdiCoffee as IconName} size={0.5} style={{ color: '#8B4513' }} />
-              </Badge>
-            )}
-
-            {/* Action Icons */}
-            <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '8px', marginTop: '8px' }}>
-              <Icon path={mdiDomain as IconName} size={0.7} style={{ cursor: 'pointer', color: '#595959' }} />
-              <Icon path={mdiBookmarkOutline as IconName} size={0.7} style={{ cursor: 'pointer', color: '#595959' }} />
-            </div>
           </div>
-        </Col>
 
-        {/* Middle Column: Person Details */}
-        <Col
-          xs={24}
-          sm={18}
-          md={13}
-          lg={13}
-          style={{
-            flex: isMobile ? '1 1 100%' : '1 1 50%',
-            minWidth: isMobile ? '100%' : '260px',
-          }}
-        >
-          <div>
-            {/* Name and Title */}
-            <h3 style={{ margin: '0 0 2px 0', fontSize: '16px', fontWeight: 600, color: '#262626' }}>
-              {person.name}
-            </h3>
-            <p style={{ margin: '0 0 12px 0', color: '#595959', fontSize: '13px', lineHeight: '1.4' }}>
-              {person.title} • {person.department}
-            </p>
+          {/* Coffee Chat Badge */}
+          {person.coffeeChat && (
+            <Badge style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <Icon path={mdiCoffee} size={0.5} style={{ color: '#8B4513' }} />
+            </Badge>
+          )}
 
+          {/* Action Icons Row */}
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <Icon path={mdiDomain} size={0.7} style={{ cursor: 'pointer', color: '#595959' }} />
+            <Icon path={mdiBookmarkOutline} size={0.7} style={{ cursor: 'pointer', color: '#595959' }} />
+          </div>
+        </div>
+
+        {/* Middle Section: Person Details - Takes remaining space */}
+        <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
+          {/* Name and Title */}
+          <h3 style={{ margin: '0 0 2px 0', fontSize: '16px', fontWeight: 600, color: '#262626' }}>
+            {person.name}
+          </h3>
+          <p style={{ margin: '0 0 16px 0', color: '#595959', fontSize: '13px', lineHeight: '1.4' }}>
+            {person.title} • {person.department}
+          </p>
+
+          {/* Info Items - Horizontal with wrap */}
+          <div 
+            style={{ 
+              display: 'flex', 
+              flexWrap: 'wrap', 
+              gap: '16px 32px',
+              width: '100%',
+            }}
+          >
             {/* Email */}
-            <div style={{ fontSize: '13px', marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
-              <Icon path={mdiEmail as IconName} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
-              <span style={{ color: '#262626' }}>{person.email}</span>
+            <div style={{ fontSize: '13px', minWidth: '180px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
+                <Icon path={mdiEmail} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
+                <span style={{ color: '#262626' }}>{person.email}</span>
+              </div>
             </div>
 
             {/* Manager */}
-            <div style={{ fontSize: '13px', marginBottom: '8px' }}>
+            <div style={{ fontSize: '13px', minWidth: '150px' }}>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
-                <Icon path={mdiAccountMultiple as IconName} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
+                <Icon path={mdiAccountMultiple} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
                 <span style={{ color: '#262626' }}>{person.manager}</span>
               </div>
               <div style={{ marginLeft: '18px', fontSize: '12px', color: '#8c8c8c' }}>
-                {person.managerTitle}
+                Manager
               </div>
             </div>
 
             {/* Business Unit */}
-            <div style={{ fontSize: '13px', marginBottom: '8px' }}>
+            <div style={{ fontSize: '13px', minWidth: '120px' }}>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
-                <Icon path={mdiBriefcase as IconName} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
+                <Icon path={mdiBriefcase} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
                 <span style={{ color: '#262626', fontWeight: 500 }}>{person.businessUnit}</span>
               </div>
               <div style={{ marginLeft: '18px', fontSize: '12px', color: '#8c8c8c' }}>
@@ -176,9 +164,9 @@ export const PersonCard: React.FC<PersonCardProps> = ({ person, isMobile = false
             </div>
 
             {/* Location */}
-            <div style={{ fontSize: '13px', marginBottom: '8px' }}>
+            <div style={{ fontSize: '13px', minWidth: '120px' }}>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
-                <Icon path={mdiMapMarker as IconName} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
+                <Icon path={mdiMapMarker} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
                 <span style={{ color: '#262626', fontWeight: 500 }}>{person.location}</span>
               </div>
               <div style={{ marginLeft: '18px', fontSize: '12px', color: '#8c8c8c' }}>
@@ -187,9 +175,9 @@ export const PersonCard: React.FC<PersonCardProps> = ({ person, isMobile = false
             </div>
 
             {/* Mentoring Status */}
-            <div style={{ fontSize: '13px' }}>
+            <div style={{ fontSize: '13px', minWidth: '180px' }}>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
-                <Icon path={mdiAccountMultiple as IconName} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
+                <Icon path={mdiAccountMultiple} size={0.5} style={{ marginRight: '6px', color: '#8c8c8c' }} />
                 <span style={{ color: getMentoringColor(), fontWeight: 500 }}>
                   {getMentoringText()}
                 </span>
@@ -199,51 +187,49 @@ export const PersonCard: React.FC<PersonCardProps> = ({ person, isMobile = false
               </div>
             </div>
           </div>
-        </Col>
+        </div>
 
-        {/* Right Column: Connection Info */}
+        {/* Right Section: Connection Info */}
         {(person.connectionInfo || person.participationInfo) && (
-          <Col
-            xs={24}
-            sm={24}
-            md={6}
-            lg={6}
+          <div
             style={{
-              flex: isMobile ? '1 1 100%' : '0 0 260px',
-              maxWidth: isMobile ? '100%' : '260px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              minWidth: isMobile ? '100%' : '240px',
+              maxWidth: isMobile ? '100%' : '280px',
+              flexShrink: 0,
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {person.connectionInfo && (
-                <div style={{ 
-                  padding: '10px 12px', 
-                  backgroundColor: '#FFF9E6', 
-                  borderRadius: '4px', 
-                  display: 'flex', 
-                  alignItems: 'flex-start',
-                  border: '1px solid #FFE7BA'
-                }}>
-                  <Icon path={mdiBriefcase as IconName} size={0.5} style={{ marginRight: '8px', marginTop: '2px', color: '#8B6914', flexShrink: 0 }} />
-                  <span style={{ fontSize: '12px', color: '#262626', lineHeight: '1.5' }}>{person.connectionInfo}</span>
-                </div>
-              )}
-              {person.participationInfo && (
-                <div style={{ 
-                  padding: '10px 12px', 
-                  backgroundColor: '#FFF9E6', 
-                  borderRadius: '4px', 
-                  display: 'flex', 
-                  alignItems: 'flex-start',
-                  border: '1px solid #FFE7BA'
-                }}>
-                  <Icon path={mdiBriefcase as IconName} size={0.5} style={{ marginRight: '8px', marginTop: '2px', color: '#8B6914', flexShrink: 0 }} />
-                  <span style={{ fontSize: '12px', color: '#262626', lineHeight: '1.5' }}>{person.participationInfo}</span>
-                </div>
-              )}
-            </div>
-          </Col>
+            {person.connectionInfo && (
+              <div style={{ 
+                padding: '10px 12px', 
+                backgroundColor: '#FFF9E6', 
+                borderRadius: '4px', 
+                display: 'flex', 
+                alignItems: 'flex-start',
+                border: '1px solid #FFE7BA'
+              }}>
+                <Icon path={mdiBriefcase} size={0.5} style={{ marginRight: '8px', marginTop: '2px', color: '#8B6914', flexShrink: 0 }} />
+                <span style={{ fontSize: '12px', color: '#262626', lineHeight: '1.5' }}>{person.connectionInfo}</span>
+              </div>
+            )}
+            {person.participationInfo && (
+              <div style={{ 
+                padding: '10px 12px', 
+                backgroundColor: '#FFF9E6', 
+                borderRadius: '4px', 
+                display: 'flex', 
+                alignItems: 'flex-start',
+                border: '1px solid #FFE7BA'
+              }}>
+                <Icon path={mdiBriefcase} size={0.5} style={{ marginRight: '8px', marginTop: '2px', color: '#8B6914', flexShrink: 0 }} />
+                <span style={{ fontSize: '12px', color: '#262626', lineHeight: '1.5' }}>{person.participationInfo}</span>
+              </div>
+            )}
+          </div>
         )}
-      </Row>
+      </div>
     </Card>
   );
 };
