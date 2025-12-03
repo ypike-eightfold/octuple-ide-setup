@@ -151,12 +151,25 @@ export const PeoplePage: React.FC = () => {
         {/* Right side: Search + User Avatar */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           {!isMobile && (
-            <TextInput
-              placeholder="Search people, jobs or projects"
-              style={{ width: '280px' }}
-              iconProps={{ path: mdiMagnify as IconName }}
-              alignIcon={TextInputIconAlign.Left}
-            />
+            <div style={{ position: 'relative', width: '280px' }}>
+              <Icon 
+                path={mdiMagnify} 
+                size={0.8} 
+                style={{ 
+                  position: 'absolute', 
+                  left: '12px', 
+                  top: '50%', 
+                  transform: 'translateY(-50%)', 
+                  color: '#8c8c8c',
+                  pointerEvents: 'none',
+                  zIndex: 1,
+                }} 
+              />
+              <TextInput
+                placeholder="Search people, jobs or projects"
+                style={{ width: '100%', paddingLeft: '36px' }}
+              />
+            </div>
           )}
           {isMobile && (
             <Button
