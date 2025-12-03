@@ -1,7 +1,7 @@
 import { Card, Avatar, Button, ButtonVariant, ButtonSize, IconName } from '@eightfold.ai/octuple';
 import Icon from '@mdi/react';
 import { 
-  mdiDomain, 
+  mdiSitemap, 
   mdiBookmarkOutline, 
   mdiCoffee, 
   mdiAccountMultiple, 
@@ -90,7 +90,7 @@ export const PersonCard: React.FC<PersonCardProps> = ({ person, isMobile = false
 
             {/* Action Icons - Top Right */}
             <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-              <Icon path={mdiDomain} size={0.8} style={{ cursor: 'pointer', color: '#8c8c8c' }} />
+              <Icon path={mdiSitemap} size={0.8} style={{ cursor: 'pointer', color: '#8c8c8c' }} />
               <Icon path={mdiBookmarkOutline} size={0.8} style={{ cursor: 'pointer', color: '#8c8c8c' }} />
             </div>
           </div>
