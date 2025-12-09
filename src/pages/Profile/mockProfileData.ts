@@ -3,8 +3,8 @@ import { ProfileData } from './types';
 export const mockProfileData: ProfileData = {
   user: {
     id: '1',
-    name: 'Regan Wyngarde',
-    initials: 'RW',
+    name: 'Sam Taylor',
+    initials: 'ST',
     title: 'Senior UX Designer',
     pronouns: 'She/Her/Hers',
     location: 'Santa Clara, CA',
@@ -53,10 +53,10 @@ export const mockProfileData: ProfileData = {
     },
   ],
   manager: {
-    name: 'Jane Doe',
+    name: 'Chris Anderson',
     title: 'UX Designer',
-    company: 'Eightfold',
-    initials: 'JD',
+    company: 'Acme Corp',
+    initials: 'CA',
   },
   peers: [
     { id: '1', name: 'Mia', initials: 'M' },
@@ -70,13 +70,12 @@ export const mockProfileData: ProfileData = {
     businessUnit: 'HR',
   },
   contactLinks: [
-    { type: 'linkedin', label: 'LinkedIn', value: 'http://linkedin.com/adam/454563', url: 'http://linkedin.com/adam/454563' },
-    { type: 'phone', label: 'Phone', value: '(408) 555-1234' },
-    { type: 'email', label: 'Email', value: 'demo+eightfolddemo-gapparent-all.com' },
+    { type: 'linkedin', label: 'LinkedIn', value: 'http://linkedin.com/in/samtaylor', url: 'http://linkedin.com/in/samtaylor' },
+    { type: 'phone', label: 'Phone', value: '(555) 123-4567' },
+    { type: 'email', label: 'Email', value: 'staylor@acme.com' },
   ],
   resumes: [
     { id: '1', filename: 'pdf-sample.pdf', date: 'Nov 23, 2025', icon: 'mdiFilePdfBox' },
-    { id: '2', filename: 'All - Admin, Adam.docx', date: 'Oct 29 2024', icon: 'mdiFileWord' },
+    { id: '2', filename: 'Resume_Sample.docx', date: 'Oct 29 2024', icon: 'mdiFileWord' },
   ],
 };
-
