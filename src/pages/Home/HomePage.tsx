@@ -17,6 +17,12 @@ import {
   mdiGithub,
   mdiBookOpenPageVariant,
   mdiArrowRight,
+  mdiBriefcaseOutline,
+  mdiDomain,
+  mdiWeb,
+  mdiSwapHorizontal,
+  mdiRobot,
+  mdiAccountHardHat,
 } from '@mdi/js';
 
 const { Content } = Layout;
@@ -42,27 +48,79 @@ interface ExamplePageCard {
   iconColor: string;
 }
 
-const examplePages: ExamplePageCard[] = [
+interface ProductCategory {
+  name: string;
+  description: string;
+  icon: string;
+  iconColor: string;
+  pages: ExamplePageCard[];
+}
+
+const productCategories: ProductCategory[] = [
   {
-    title: 'People Page',
-    description: 'A searchable directory of people with filters, responsive cards, and connection features. Demonstrates search, cards, tabs, and responsive grid layout.',
-    route: '/people',
-    icon: mdiAccountGroup,
+    name: 'Talent Management',
+    description: 'Employee profiles, people search, org charts, and team management',
+    icon: mdiDomain,
     iconColor: '#1999AC',
+    pages: [
+      {
+        title: 'People Page',
+        description: 'A searchable directory of people with filters, responsive cards, and connection features.',
+        route: '/talent-management/people',
+        icon: mdiAccountGroup,
+        iconColor: '#1999AC',
+      },
+      {
+        title: 'Profile Page',
+        description: 'A detailed user profile with skills, projects, organization info, and multiple sections.',
+        route: '/talent-management/profile',
+        icon: mdiAccountCircle,
+        iconColor: '#9B59B6',
+      },
+    ],
   },
   {
-    title: 'Profile Page',
-    description: 'A detailed user profile with skills, projects, organization info, and multiple sections. Demonstrates tabs, forms, avatars, and two-column layout.',
-    route: '/profile',
-    icon: mdiAccountCircle,
-    iconColor: '#9B59B6',
-  },
-  {
-    title: 'Candidate Details',
-    description: 'A talent acquisition workflow page showing candidate information, resume, stepper progress, and evaluations. Demonstrates stepper, menu, and complex layout.',
-    route: '/candidates/details',
-    icon: mdiFileDocumentOutline,
+    name: 'Talent Acquisition',
+    description: 'Candidate details, job postings, applications, and hiring workflows',
+    icon: mdiBriefcaseOutline,
     iconColor: '#E67E22',
+    pages: [
+      {
+        title: 'Candidate Details',
+        description: 'A talent acquisition workflow page showing candidate info, resume, and evaluations.',
+        route: '/talent-acquisition/candidates',
+        icon: mdiFileDocumentOutline,
+        iconColor: '#E67E22',
+      },
+    ],
+  },
+  {
+    name: 'Personal Career Site',
+    description: 'Career pages, job search, and candidate self-service portals',
+    icon: mdiWeb,
+    iconColor: '#27AE60',
+    pages: [],
+  },
+  {
+    name: 'Workforce Exchange',
+    description: 'Talent marketplace, gig matching, and contractor management',
+    icon: mdiSwapHorizontal,
+    iconColor: '#3498DB',
+    pages: [],
+  },
+  {
+    name: 'AI Agents',
+    description: 'AI assistant interfaces, conversational UI, and automated workflows',
+    icon: mdiRobot,
+    iconColor: '#8E44AD',
+    pages: [],
+  },
+  {
+    name: 'Resource Management',
+    description: 'Resource allocation, project staffing, and capacity planning',
+    icon: mdiAccountHardHat,
+    iconColor: '#C0392B',
+    pages: [],
   },
 ];
 
@@ -176,7 +234,7 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Example Pages Section */}
+      {/* Product Categories Section */}
       <Content style={{ padding: '48px 24px', maxWidth: '1200px', margin: '0 auto' }}>
         <h2
           style={{
@@ -187,7 +245,7 @@ export const HomePage: React.FC = () => {
             margin: '0 0 12px',
           }}
         >
-          Example Pages
+          Example Pages by Product
         </h2>
         <p
           style={{
@@ -197,92 +255,164 @@ export const HomePage: React.FC = () => {
             margin: '0 0 40px',
           }}
         >
-          Click on any card to explore the example implementation
+          Explore example implementations organized by Eightfold product line
         </p>
 
-        <Row gutter={24} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-          {examplePages.map((page) => (
-            <Col key={page.route} xs={24} md={12} lg={8} style={{ marginBottom: '24px' }}>
-              <Card
+        {productCategories.map((category) => (
+          <div key={category.name} style={{ marginBottom: '48px' }}>
+            {/* Category Header */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                marginBottom: '20px',
+              }}
+            >
+              <div
                 style={{
-                  height: '100%',
-                  border: `1px solid ${colors.border}`,
-                  borderRadius: '16px',
-                  padding: '32px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  background: colors.white,
-                }}
-                onClick={() => navigate(page.route)}
-                onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
-                  const target = e.currentTarget;
-                  target.style.transform = 'translateY(-4px)';
-                  target.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.1)';
-                }}
-                onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-                  const target = e.currentTarget;
-                  target.style.transform = 'translateY(0)';
-                  target.style.boxShadow = 'none';
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '12px',
+                  background: `${category.iconColor}15`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                {/* Icon */}
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '16px',
-                    background: `${page.iconColor}15`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '20px',
-                  }}
-                >
-                  <Icon path={page.icon} size={1.5} style={{ color: page.iconColor }} />
-                </div>
-
-                {/* Title */}
+                <Icon path={category.icon} size={1.2} style={{ color: category.iconColor }} />
+              </div>
+              <div>
                 <h3
                   style={{
                     fontSize: '22px',
                     fontWeight: 600,
                     color: colors.text,
-                    margin: '0 0 12px',
+                    margin: 0,
                   }}
                 >
-                  {page.title}
+                  {category.name}
                 </h3>
+                <p
+                  style={{
+                    fontSize: '14px',
+                    color: colors.textLight,
+                    margin: 0,
+                  }}
+                >
+                  {category.description}
+                </p>
+              </div>
+            </div>
 
-                {/* Description */}
+            {/* Pages Grid */}
+            {category.pages.length > 0 ? (
+              <Row gutter={24} style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {category.pages.map((page) => (
+                  <Col key={page.route} xs={24} md={12} lg={8} style={{ marginBottom: '24px' }}>
+                    <Card
+                      style={{
+                        height: '100%',
+                        border: `1px solid ${colors.border}`,
+                        borderRadius: '16px',
+                        padding: '28px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        background: colors.white,
+                      }}
+                      onClick={() => navigate(page.route)}
+                      onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+                        const target = e.currentTarget;
+                        target.style.transform = 'translateY(-4px)';
+                        target.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.1)';
+                      }}
+                      onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+                        const target = e.currentTarget;
+                        target.style.transform = 'translateY(0)';
+                        target.style.boxShadow = 'none';
+                      }}
+                    >
+                      {/* Icon */}
+                      <div
+                        style={{
+                          width: '56px',
+                          height: '56px',
+                          borderRadius: '14px',
+                          background: `${page.iconColor}15`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginBottom: '16px',
+                        }}
+                      >
+                        <Icon path={page.icon} size={1.3} style={{ color: page.iconColor }} />
+                      </div>
+
+                      {/* Title */}
+                      <h4
+                        style={{
+                          fontSize: '18px',
+                          fontWeight: 600,
+                          color: colors.text,
+                          margin: '0 0 8px',
+                        }}
+                      >
+                        {page.title}
+                      </h4>
+
+                      {/* Description */}
+                      <p
+                        style={{
+                          fontSize: '14px',
+                          color: colors.textLight,
+                          lineHeight: 1.5,
+                          margin: '0 0 16px',
+                        }}
+                      >
+                        {page.description}
+                      </p>
+
+                      {/* View Link */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          color: colors.primary,
+                          fontWeight: 600,
+                          fontSize: '14px',
+                        }}
+                      >
+                        View Example
+                        <Icon path={mdiArrowRight} size={0.7} />
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <div
+                style={{
+                  background: colors.white,
+                  border: `1px dashed ${colors.border}`,
+                  borderRadius: '12px',
+                  padding: '32px',
+                  textAlign: 'center',
+                }}
+              >
                 <p
                   style={{
                     fontSize: '15px',
                     color: colors.textLight,
-                    lineHeight: 1.6,
-                    margin: '0 0 20px',
+                    margin: 0,
                   }}
                 >
-                  {page.description}
+                  No example pages yet. Ask AI to create one for this product line!
                 </p>
-
-                {/* View Link */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: colors.primary,
-                    fontWeight: 600,
-                    fontSize: '15px',
-                  }}
-                >
-                  View Example
-                  <Icon path={mdiArrowRight} size={0.8} />
-                </div>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+              </div>
+            )}
+          </div>
+        ))}
       </Content>
 
       {/* Footer */}
@@ -310,4 +440,3 @@ export const HomePage: React.FC = () => {
     </Layout>
   );
 };
-

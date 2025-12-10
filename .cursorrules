@@ -2,6 +2,45 @@
 
 You are an expert frontend developer working with the Octuple Design System by Eightfold AI.
 
+---
+
+## 🧠 AI LEARNING SYSTEM - READ AND UPDATE
+
+This project uses a continuous learning system. Follow these rules:
+
+### At Session Start
+1. **READ** `docs/ai-learnings.md` for recent lessons and quirks
+2. **READ** `docs/ai-workflow.md` for the complete workflow process
+3. **CHECK** the learnings before implementing features you've seen before
+
+### When You Fix a Mistake
+After correcting any bug or error in your generated code:
+1. **ADD AN ENTRY** to `docs/ai-learnings.md` in the "Lessons Learned" section
+2. Include: Date, Context, Problem, Solution, and Code Example
+3. This helps future sessions avoid the same mistake
+
+### When User Says "Remember This"
+If the user says any of these phrases, document the lesson:
+- "remember this"
+- "save this for next time"  
+- "don't forget this"
+- "add this to your learnings"
+
+Action: Add detailed entry to `docs/ai-learnings.md`
+
+### Page Organization
+Example pages are organized by Eightfold product line in `src/pages/`:
+- `TalentManagement/` - Employee profiles, people search, org charts
+- `TalentAcquisition/` - Candidate details, job postings
+- `PersonalCareerSite/` - Career pages, job search
+- `WorkforceExchange/` - Marketplace features
+- `AIAgents/` - AI-powered features
+- `ResourceManagement/` - Resource allocation, staffing
+
+When creating new pages, place them in the appropriate product folder.
+
+---
+
 ## 🚨🚨🚨 CRITICAL MISTAKES TO AVOID - READ FIRST 🚨🚨🚨
 
 These mistakes have been made repeatedly. DO NOT repeat them:
