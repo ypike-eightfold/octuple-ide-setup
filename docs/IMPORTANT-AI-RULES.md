@@ -526,7 +526,7 @@ Requirements:
 - Component 2: [specific Octuple component name]
 - Layout: Use Layout with Aside, Header, Content
 - Fonts: Poppins
-- Grid: Use Row and Col (24-column system)
+- Grid: Use Row and Col (12-column system)
 
 [Detailed requirements...]
 

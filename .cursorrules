@@ -105,8 +105,10 @@ Octuple Cards have internal max-width. Override in CSS:
 }
 ```
 
-### 7. TABS - Indicator Positioning in Headers
-For tabs in 80px headers, add CSS to position indicator correctly:
+### 7. TABS - Indicator Positioning (Top-Level Navigation Only)
+**Note:** This CSS is only needed for top-level site navigation tabs in headers. Normal in-page tabs work correctly without this override.
+
+For tabs used as top-level site navigation in 80px headers:
 ```css
 header [class*="tabs-module_tabs"],
 header [class*="tabs-module_tab-wrap"] {
@@ -123,36 +125,27 @@ header [class*="tabs-module_tab-indicator"] {
 Always check documentation or TypeScript types before using a component.
 Use: `npm run check-props ComponentName`
 
-### 9. TEXTINPUT - Icon Positioning Requires Wrapper
+### 9. SEARCH INPUTS - Use SearchBox Component
 ```typescript
-// ❌ WRONG - iconProps doesn't reliably position icons inside TextInput
+// ❌ WRONG - Don't use TextInput with manual icon workarounds for search
 <TextInput
   placeholder="Search"
   iconProps={{ path: mdiMagnify as IconName }}
-  alignIcon={TextInputIconAlign.Left}
 />
 
-// ✅ CORRECT - Use wrapper with absolute positioning
-<div style={{ position: 'relative', width: '280px' }}>
-  <Icon 
-    path={mdiMagnify} 
-    size={0.8} 
-    style={{ 
-      position: 'absolute', 
-      left: '12px', 
-      top: '50%', 
-      transform: 'translateY(-50%)', 
-      color: '#8c8c8c',
-      pointerEvents: 'none',
-      zIndex: 1,
-    }} 
-  />
-  <TextInput
-    placeholder="Search"
-    style={{ width: '100%', paddingLeft: '36px' }}
-  />
-</div>
+// ✅ CORRECT - Use SearchBox component for search functionality
+import { SearchBox } from '@eightfold.ai/octuple';
+
+<SearchBox
+  placeholder="Search..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+  waitInterval={300}
+  clearable={true}
+  ariaLabel="Search"
+/>
 ```
+SearchBox extends TextInput and is wrapped in a `<form>` with search role. It has proper icon support built-in.
 
 ### 10. LAYOUT - Prefer Flexbox Over Row/Col for Simple Layouts
 ```typescript

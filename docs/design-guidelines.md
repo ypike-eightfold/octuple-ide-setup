@@ -651,12 +651,12 @@ import {
 
 ### Grid System
 
-**Octuple uses a 24-column grid system** for flexible, responsive layouts.
+**Octuple uses a 12-column grid system** for flexible, responsive layouts.
 
 **Key Features:**
-- 24 columns (more flexible than 12-column)
-- Responsive breakpoints
-- Flexible gutters
+- 12 columns (standard grid system)
+- Responsive breakpoints: Large (>=1200px), Medium (>=900px), Small (>=600px), XSmall (>=0)
+- Flexible gutters (24px default on desktop)
 - Nested grids supported
 
 **Why 24 Columns?**

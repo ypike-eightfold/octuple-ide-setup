@@ -155,6 +155,32 @@ const ThemedPills = () => {
 };
 ```
 
+### Color Semantics
+
+Use the following color themes to convey meaning:
+
+| Theme | Color | Semantic Meaning | Use For |
+|-------|-------|------------------|---------|
+| `green` | Green | Ongoing / In Progress | Active tasks, current status, in-progress items |
+| `orange` or `yellow` | Orange/Yellow | Warning | Attention needed, pending items, caution states |
+| `red` | Red | Error | Failed items, errors, critical issues |
+| `blue` | Blue | Success | Completed items, success states, positive outcomes |
+
+```typescript
+import { Pill } from '@eightfold.ai/octuple';
+
+const StatusPills = () => {
+  return (
+    <div style={{ display: 'flex', gap: '8px' }}>
+      <Pill label="In Progress" theme="green" />    {/* Ongoing */}
+      <Pill label="Needs Review" theme="orange" />  {/* Warning */}
+      <Pill label="Failed" theme="red" />           {/* Error */}
+      <Pill label="Completed" theme="blue" />       {/* Success */}
+    </div>
+  );
+};
+```
+
 ---
 
 ## Common Patterns

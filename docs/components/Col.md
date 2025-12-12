@@ -10,7 +10,7 @@
 ## Overview
 
 ### Purpose
-The Col component is a column container that works with Row components to create responsive grid layouts. It's part of Octuple's 24-column grid system.
+The Col component is a column container that works with Row components to create responsive grid layouts. It's part of Octuple's **12-column grid system**.
 
 ### When to Use
 - Creating column-based layouts within a Row

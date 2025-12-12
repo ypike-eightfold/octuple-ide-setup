@@ -76,14 +76,18 @@ import {
 
 ```
 What action does it perform?
-├─ Primary action (most important)
+├─ Primary action (most important, one per screen)
 │  └─ Button variant={ButtonVariant.Primary}
-├─ Secondary action
+├─ Secondary action (second level emphasis)
+│  └─ Button variant={ButtonVariant.Secondary}
+├─ Tertiary action (themed)
 │  └─ Button variant={ButtonVariant.Default}
+├─ Subtle tertiary action (light gray, place anywhere)
+│  └─ Button variant={ButtonVariant.Neutral}
+├─ Least emphasized action (white background)
+│  └─ Button variant={ButtonVariant.SystemUI}
 ├─ Destructive action (delete, remove)
 │  └─ Button variant={ButtonVariant.SystemUI} disruptive={true}
-├─ Subtle action or link
-│  └─ Button variant={ButtonVariant.Neutral}
 └─ With dropdown options
    └─ Button + Dropdown component
 ```
@@ -210,18 +214,17 @@ What layout?
 ├─ Simple page (no sidebar)
 │  └─ Layout > Header + Content
 │
-├─ Two columns (side-by-side)
-│  ├─ 50/50 → Row/Col span={12}/{12}
-│  ├─ 66/33 → Row/Col span={16}/{8}
-│  └─ 75/25 → Row/Col span={18}/{6}
-│     ⚠️ CRITICAL: Add explicit flex styles!
+├─ Two columns (side-by-side) - 12-column grid
+│  ├─ 50/50 → Row/Col span={6}/{6}
+│  ├─ 66/33 → Row/Col span={8}/{4}
+│  └─ 75/25 → Row/Col span={9}/{3}
 │     Pattern: docs/patterns/two-column-layout.md
 │
 ├─ Three columns
-│  └─ Row/Col span={8}/{8}/{8}
+│  └─ Row/Col span={4}/{4}/{4}
 │
 ├─ Card grid (responsive)
-│  └─ Row with gutter + Col span={6} (4 columns)
+│  └─ Row with gutter + Col span={3} (4 columns)
 │     Pattern: docs/patterns/card-grid.md
 │
 └─ Dashboard layout
@@ -781,11 +784,11 @@ What display?
 
 | Variant | Enum | Use Case | Example |
 |---------|------|----------|---------|
-| Primary | `ButtonVariant.Primary` | Main action | Save, Submit, Create |
-| Default | `ButtonVariant.Default` | Secondary action | Cancel, Back |
-| Neutral | `ButtonVariant.Neutral` | Tertiary/link | View Details, Learn More |
-| SystemUI | `ButtonVariant.SystemUI` | System-level | With `disruptive` for delete |
-| Secondary | `ButtonVariant.Secondary` | Alternative action | Download, Export |
+| Primary | `ButtonVariant.Primary` | Main action (highest emphasis, one per screen) | Save, Submit, Create |
+| Secondary | `ButtonVariant.Secondary` | Second level emphasis | Download, Export |
+| Default | `ButtonVariant.Default` | Themed tertiary action | Cancel, Back |
+| Neutral | `ButtonVariant.Neutral` | Light gray, subtle tertiary (place anywhere) | View Details, Learn More |
+| SystemUI | `ButtonVariant.SystemUI` | White background, least emphasis | With `disruptive` for delete |
 
 **Common Props:**
 - `text`: string (button label)

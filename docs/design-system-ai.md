@@ -118,13 +118,19 @@ This document serves as a comprehensive guide for AI coding agents to use the Oc
 
 **Common Props:**
 - `text: string` - Button label (required)
-- `variant?: 'primary' | 'secondary' | 'default' | 'danger' | 'link'` - Button style variant
-- `size?: 'large' | 'medium' | 'small'` - Button size
+- `variant?: 'primary' | 'secondary' | 'default' | 'neutral' | 'systemui'` - Button style variant
+  - `primary` - Highest emphasis (one per screen recommended)
+  - `secondary` - Second level emphasis
+  - `default` - Themed tertiary action
+  - `neutral` - Light gray, subtle tertiary (place anywhere)
+  - `systemui` - White background, least emphasis
+- `size?: 'large' | 'medium' | 'small' | 'flex'` - Button size
 - `onClick?: () => void` - Click handler
 - `disabled?: boolean` - Disable button
 - `htmlType?: 'button' | 'submit' | 'reset'` - HTML button type
-- `icon?: React.ReactNode` - Icon element
+- `iconProps?: { path: IconName }` - Icon configuration
 - `loading?: boolean` - Show loading state
+- `disruptive?: boolean` - Red/warning style for destructive actions
 
 **Anti-patterns:**
 - ❌ `<button className="btn">Click</button>` - Never use raw HTML button

@@ -41,6 +41,78 @@ When adding entries, use this format:
 
 <!-- AI: Add new lessons here. Most recent at the top. -->
 
+### Grid is 12-Column, NOT 24-Column - CRITICAL
+**Date:** 2024-12-11
+**Context:** Documenting Row/Col grid system
+**Problem:** Incorrectly documented Octuple as having a "24-column grid system"
+**Solution:** Octuple uses a **12-column grid system**. Span values should be 1-12, not 1-24.
+
+| Breakpoint | Min Width | Grid Columns |
+|------------|-----------|--------------|
+| Large | >= 1200px | 12 columns, 24px gutter |
+| Medium | >= 900px | 12 columns |
+| Small | >= 600px | Adapts |
+| XSmall | >= 0 | Mobile |
+
+---
+
+### Use SearchBox for Search Inputs - NOT TextInput Workarounds
+**Date:** 2024-12-11
+**Context:** Creating search input fields
+**Problem:** Was using TextInput with manual icon positioning workarounds
+**Solution:** Use the `SearchBox` component which extends TextInput and has proper icon support built-in.
+
+```typescript
+// ✅ Correct - Use SearchBox
+import { SearchBox } from '@eightfold.ai/octuple';
+
+<SearchBox
+  placeholder="Search..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+  waitInterval={300}
+  clearable={true}
+  ariaLabel="Search"
+/>
+```
+
+SearchBox is wrapped in a `<form>` element with search role for proper semantics.
+
+---
+
+### Pill Color Semantics - Status Indicators
+**Date:** 2024-12-11
+**Context:** Using Pill component themes for status indication
+**Problem:** Did not document the semantic meaning of Pill colors
+**Solution:** Use these color themes to convey meaning:
+
+| Theme | Semantic Meaning | Use For |
+|-------|------------------|---------|
+| `green` | Ongoing / In Progress | Active tasks, current status |
+| `orange` | Warning | Attention needed, pending items |
+| `red` | Error | Failed items, errors, critical issues |
+| `blue` | Success | Completed items, positive outcomes |
+
+---
+
+### Button Variant Descriptions - CRITICAL
+**Date:** 2024-12-11
+**Context:** Documenting Button component variants in documentation files
+**Problem:** Incorrectly described variant purposes (e.g., said Default was for "secondary actions", Neutral was "link-style")
+**Solution:** Use the correct Octuple design language for each variant:
+
+| Variant | Correct Description |
+|---------|---------------------|
+| **Primary** | Emphasized button for primary actions (one per screen recommended) |
+| **Secondary** | Second level emphasized button for secondary actions |
+| **Default** | Themed button which is a variant of tertiary actions |
+| **Neutral** | Light gray background button that is subtle enough to place anywhere. This is our tertiary button. |
+| **SystemUI** | White background button over white background to give the least emphasized actions |
+
+**Key Insight:** The emphasis hierarchy is: Primary > Secondary > Default/Neutral > SystemUI (least)
+
+---
+
 ### Example Entry (Template)
 **Date:** 2024-01-01
 **Context:** Creating a toggle switch for settings
@@ -83,16 +155,12 @@ When adding entries, use this format:
 }
 ```
 
-### TextInput Icon Positioning Unreliable
-**Discovered:** Initial setup
-**Behavior:** `iconProps` and `alignIcon` don't reliably position icons
-**Workaround:** Use absolute positioning wrapper:
-```typescript
-<div style={{ position: 'relative' }}>
-  <Icon path={mdiMagnify} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
-  <TextInput style={{ paddingLeft: '36px' }} />
-</div>
-```
+### Search Inputs - Use SearchBox Component
+**Discovered:** 2024-12-11
+**Status:** ✅ Resolved
+**Issue:** Was incorrectly using TextInput with manual icon positioning workarounds for search inputs.
+**Solution:** Use the `SearchBox` component instead. It extends TextInput and has proper icon support built-in.
+**Reference:** See `docs/components/SearchBox.md` for full documentation.
 
 ---
 
@@ -132,32 +200,23 @@ When adding entries, use this format:
 </Card>
 ```
 
-### Search Input with Icon
-**Use Case:** Search bars with magnifying glass icon
+### Search Input - Use SearchBox
+**Use Case:** Search bars and search functionality
 **Pattern:**
 ```typescript
-<div style={{ position: 'relative', width: '280px' }}>
-  <Icon 
-    path={mdiMagnify} 
-    size={0.8} 
-    style={{ 
-      position: 'absolute', 
-      left: '12px', 
-      top: '50%', 
-      transform: 'translateY(-50%)', 
-      color: '#8c8c8c',
-      pointerEvents: 'none',
-      zIndex: 1,
-    }} 
-  />
-  <TextInput
-    placeholder="Search..."
-    style={{ width: '100%', paddingLeft: '36px' }}
-    value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
-  />
-</div>
+import { SearchBox, TextInputWidth } from '@eightfold.ai/octuple';
+
+<SearchBox
+  placeholder="Search..."
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+  waitInterval={300}
+  clearable={true}
+  inputWidth={TextInputWidth.fill}
+  ariaLabel="Search"
+/>
 ```
+**Note:** Don't use TextInput with manual icon positioning. SearchBox has proper icon support built-in.
 
 ---
 
@@ -165,9 +224,24 @@ When adding entries, use this format:
 
 | Date | Change | By |
 |------|--------|-----|
+| 2024-12-11 | Fixed 24-column to 12-column grid documentation | AI |
+| 2024-12-11 | Added SearchBox component recommendation | AI |
+| 2024-12-11 | Added Button variant corrections | AI |
+| 2024-12-11 | Added Pill color semantics | AI |
 | 2024-12-10 | Initial creation with known quirks | AI Setup |
 
 ---
 
-*This document is automatically maintained by AI coding agents. Last updated: 2024-12-10*
+## Known Documentation Issues to Review
+
+**Grid Column Values:** Some pattern files and examples may still use 24-column span values (e.g., span={16}, span={18}). These should be converted to 12-column equivalents:
+- span={12} → span={6} (50%)
+- span={16} → span={8} (66%)
+- span={18} → span={9} (75%)
+- span={8} → span={4} (33%)
+- span={6} → span={3} (25%)
+
+---
+
+*This document is automatically maintained by AI coding agents. Last updated: 2024-12-11*
 

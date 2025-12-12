@@ -120,11 +120,11 @@ enum ButtonWidth {
 ## Visual States
 
 ### Variants
-- **Default**: Standard button for secondary actions
+- **Default**: Themed button which is a variant of the tertiary actions
 - **Primary**: Emphasized button for primary actions (one per screen recommended)
-- **Secondary**: De-emphasized button for tertiary actions
-- **SystemUI**: System-level UI actions
-- **Neutral**: Link-style button for navigation
+- **Secondary**: Second level emphasized button for secondary actions
+- **SystemUI**: White background button over white background to give the least emphasized actions
+- **Neutral**: Light gray background button that is subtle enough to place anywhere. This is our tertiary button.
 
 ### Sizes
 - **Flex**: Automatically resizes based on browser breakpoints (Large >= 1200, Medium >= 900, Small >= 600, XSmall >= 0)
@@ -610,11 +610,11 @@ import { IconName } from '@mdi/react';
 
 ### Colors
 Button colors are handled by the `variant` prop:
-- **Primary**: Brand color (emphasis)
-- **Default**: Neutral (standard actions)
-- **Secondary**: De-emphasized
-- **SystemUI**: System actions
-- **Neutral**: Link-like appearance
+- **Primary**: Brand color (highest emphasis)
+- **Secondary**: Second level emphasis
+- **Default**: Themed button for tertiary actions
+- **Neutral**: Light gray background (tertiary, subtle)
+- **SystemUI**: White background (least emphasized)
 - **Disruptive**: Red/warning color (with `disruptive={true}`)
 
 ---

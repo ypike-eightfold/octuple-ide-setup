@@ -10,7 +10,7 @@
 ## Overview
 
 ### Purpose
-The Row component is a horizontal layout container that works with Col components to create responsive grid layouts. It's part of Octuple's 24-column grid system.
+The Row component is a horizontal layout container that works with Col components to create responsive grid layouts. It's part of Octuple's **12-column grid system** (not 24).
 
 ### When to Use
 - Creating horizontal layouts
@@ -20,7 +20,7 @@ The Row component is a horizontal layout container that works with Col component
 
 ### When NOT to Use
 - Simple stacked layouts (use flex or Layout components)
-- When you need more than 24 columns
+- When you need more than 12 columns
 - Single-column layouts
 
 ---
@@ -315,16 +315,21 @@ const CardGrid = () => {
 
 ### ✅ Do
 - Use `gutter` for spacing between columns (don't use margin)
-- Use span values that sum to 24 for full width
+- Use span values that sum to **12** for full width (12-column grid)
 - Use `align` and `justify` for column alignment
-- Add explicit flex styles for horizontal layouts (see Fixed Layout example)
+- The Grid is flex-based by default
 - Consider responsive behavior with different span values
 
 ### ❌ Don't
 - Don't use Row without Col children
-- Don't use span values exceeding 24
+- Don't use span values exceeding **12**
 - Don't add margins to Col directly (use gutter)
-- Don't forget to add flex styles if columns are stacking unexpectedly
+
+### Responsive Breakpoints
+- **Large**: >= 1200px (12-column grid, 24px margin, 24px gutter)
+- **Medium**: >= 900px (12-column grid)
+- **Small**: >= 600px (adapts layout)
+- **XSmall**: >= 0 (mobile)
 
 ---
 
