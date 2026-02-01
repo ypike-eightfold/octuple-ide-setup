@@ -41,6 +41,42 @@ When adding entries, use this format:
 
 <!-- AI: Add new lessons here. Most recent at the top. -->
 
+### AVOID SearchBox - Use TextInput with iconProps Instead
+**Date:** 2024-12-16
+**Context:** SearchBox component icon appearing outside the input field
+**Problem:** The SearchBox component has persistent icon alignment issues. The search icon appears OUTSIDE the input field border instead of inside. Multiple CSS override attempts failed - the SearchBox uses an icon-button that is extremely difficult to position correctly via CSS.
+**Solution:** **DO NOT USE SearchBox**. Instead, use `TextInput` with `iconProps` and `alignIcon`:
+
+```typescript
+// ❌ WRONG - SearchBox has icon positioning issues
+<SearchBox
+  placeholder="Search..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+/>
+
+// ✅ CORRECT - Use TextInput with iconProps
+import { TextInput, TextInputIconAlign, IconName } from '@eightfold.ai/octuple';
+import { mdiMagnify } from '@mdi/js';
+
+<TextInput
+  placeholder="Search..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+  iconProps={{ path: mdiMagnify as IconName }}
+  alignIcon={TextInputIconAlign.Left}
+  clearable
+/>
+```
+
+**Key Learning:** 
+1. SearchBox has a bug where the icon-button is positioned outside the input field
+2. CSS overrides do NOT reliably fix this issue
+3. TextInput with `iconProps` and `alignIcon={TextInputIconAlign.Left}` works correctly
+4. See working example in `src/pages/TalentManagement/People/PeoplePage.tsx`
+
+---
+
 ### Grid is 12-Column, NOT 24-Column - CRITICAL
 **Date:** 2024-12-11
 **Context:** Documenting Row/Col grid system

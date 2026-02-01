@@ -23,6 +23,7 @@ import {
   mdiSwapHorizontal,
   mdiRobot,
   mdiAccountHardHat,
+  mdiRocketLaunchOutline,
 } from '@mdi/js';
 
 const { Content } = Layout;
@@ -91,6 +92,13 @@ const productCategories: ProductCategory[] = [
         route: '/talent-acquisition/candidates',
         icon: mdiFileDocumentOutline,
         iconColor: '#E67E22',
+      },
+      {
+        title: 'Recruiting Agent Setup',
+        description: 'A 4-step wizard to configure and deploy an AI recruiting agent with ATS integration.',
+        route: '/talent-acquisition/recruiting-agent',
+        icon: mdiRocketLaunchOutline,
+        iconColor: '#8E44AD',
       },
     ],
   },

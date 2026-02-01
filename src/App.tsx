@@ -8,6 +8,7 @@ import { ProfilePage } from './pages/TalentManagement/Profile/ProfilePage';
 
 // Talent Acquisition
 import { CandidateDetails } from './pages/TalentAcquisition/CandidateDetails';
+import { RecruitingAgentSetup } from './pages/TalentAcquisition/RecruitingAgentSetup';
 
 /**
  * Main App with routing for multiple example pages
@@ -34,6 +35,7 @@ function App() {
         
         {/* Talent Acquisition */}
         <Route path="/talent-acquisition/candidates" element={<CandidateDetails />} />
+        <Route path="/talent-acquisition/recruiting-agent" element={<RecruitingAgentSetup />} />
         
         {/* Legacy routes for backwards compatibility */}
         <Route path="/people" element={<PeoplePage />} />
